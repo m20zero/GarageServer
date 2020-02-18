@@ -1,10 +1,11 @@
 package com.spring.rest.spring_rest;
 
 import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,10 +14,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(allowCredentials="true", origins="*", allowedHeaders="*", methods={RequestMethod.GET, RequestMethod.POST,RequestMethod.DELETE,RequestMethod.HEAD,RequestMethod.OPTIONS,RequestMethod.PATCH,RequestMethod.PUT,RequestMethod.TRACE})
+@CrossOrigin(allowCredentials = "true", origins = "*", allowedHeaders = "*", methods = { RequestMethod.GET,
+		RequestMethod.POST, RequestMethod.DELETE, RequestMethod.HEAD, RequestMethod.OPTIONS, RequestMethod.PATCH,
+		RequestMethod.PUT, RequestMethod.TRACE })
 @RestController
 public class RestTestController {
-	
+
 	@Autowired
 	private CustomerService customerService;
 	@Autowired
@@ -42,15 +45,15 @@ public class RestTestController {
 	@Autowired
 	private AuthoritiesService authoritiesService;
 	@Autowired
-	private BCryptPasswordEncoder bCryptPasswordEncoder;
-	
-	//HEALTH
+	private PasswordEncoder bCryptPasswordEncoder;
+
+	// HEALTH
 	@RequestMapping("/health")
 	public String getHealth() {
 		return "OK";
 	}
-	
-	//AUTH TEST
+
+	// AUTH TEST
 	@RequestMapping("/testuser")
 	public ResponseEntity<StandardResponse> addTestUser() {
 		Users user = new Users();
@@ -64,7 +67,7 @@ public class RestTestController {
 		authoritiesService.addAuthorities(authorities);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("TEST USER ADDED"), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/adduser", method = RequestMethod.POST)
 	public ResponseEntity<StandardResponse> addUsers(@RequestBody(required = true) UserInfo userInfo) {
 		Users user = new Users();
@@ -79,20 +82,19 @@ public class RestTestController {
 		authoritiesService.addAuthorities(authorities);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
+
 	@GetMapping(produces = "application/json")
 	@RequestMapping({ "/validateLogin" })
 	public User validateLogin() {
 		return new User("User successfully authenticated");
 	}
-	
+
 	@RequestMapping("/api/userroles/{username}")
 	public List<Authorities> getUserRoles(@PathVariable("username") String username) {
 		return roleService.getUserRoles(username);
 	}
-	
-	
-	//CUSTOMER SERVICE
+
+	// CUSTOMER SERVICE
 	@RequestMapping("/api/customers")
 	public List<Customer> getAllCustomersData() {
 		return customerService.getallCustomer();
@@ -120,14 +122,13 @@ public class RestTestController {
 		customerService.deleteCustomer(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
-		
-	//JOB SERVICE
+
+	// JOB SERVICE
 	@RequestMapping("/api/jobs")
 	public List<Job> getAllJobs() {
 		return jobService.getallJob();
 	}
-	
+
 	@RequestMapping("/api/jobs/Completed")
 	public List<Job> getAllCompletedJobs() {
 		return jobService.getallCompletedPendingJobs("Completed");
@@ -137,7 +138,6 @@ public class RestTestController {
 	public List<Job> getAllPendingJobs() {
 		return jobService.getallCompletedPendingJobs("Pending");
 	}
-	
 
 	@RequestMapping("/api/job/{id}")
 	public ResponseEntity<Job> getJob(@PathVariable("id") long id) {
@@ -161,8 +161,8 @@ public class RestTestController {
 		jobService.deleteJob(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-		
-	//Vendor SERVICE
+
+	// Vendor SERVICE
 	@RequestMapping("/api/vendors")
 	public List<Vendor> getAllVendors() {
 		return vendorService.getallVendor();
@@ -190,8 +190,8 @@ public class RestTestController {
 		vendorService.deleteVendor(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-		
-	//INVENTORY SERVICE
+
+	// INVENTORY SERVICE
 	@RequestMapping("/api/inventory")
 	public List<Inventory> getAllInventory() {
 		return inventoryService.getallInventory();
@@ -219,8 +219,8 @@ public class RestTestController {
 		inventoryService.deleteInventory(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-		
-	//SERVICE SERVICE
+
+	// SERVICE SERVICE
 	@RequestMapping("/services")
 	public List<Service> getAllService() {
 		return serviceService.getallServices();
@@ -248,8 +248,8 @@ public class RestTestController {
 		serviceService.deleteService(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
-	//SALE SERVICE
+
+	// SALE SERVICE
 	@RequestMapping("/api/sales")
 	public List<Sale> getAllSales() {
 		return saleService.getallSales();
@@ -277,13 +277,12 @@ public class RestTestController {
 		saleService.deleteSale(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
-	//WORKER SERVICE
+
+	// WORKER SERVICE
 	@RequestMapping("/api/workers")
 	public List<Worker> getAllWorkers() {
 		return workerService.getallWorkers();
 	}
-	
 
 	@RequestMapping("/api/worker/{id}")
 	public ResponseEntity<Worker> getWorker(@PathVariable("id") long id) {
@@ -307,8 +306,8 @@ public class RestTestController {
 		workerService.deleteWorker(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
-	//EXPENSE SERVICE
+
+	// EXPENSE SERVICE
 	@RequestMapping("/api/expenses")
 	public List<Expense> getAllExpenses() {
 		return expenseService.getallExpenses();
@@ -336,14 +335,13 @@ public class RestTestController {
 		expenseService.deleteExpense(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
-	
-	//BILL SERVICE
+
+	// BILL SERVICE
 	@RequestMapping("/api/bills")
 	public List<Bill> getAllBills() {
 		return billService.getallBills();
 	}
-	
+
 	@RequestMapping("/api/billbysale/{id}")
 	public Bill getBillWithSaleId(@PathVariable("id") long id) {
 		return billService.getBillBySaleId(id);
@@ -353,7 +351,7 @@ public class RestTestController {
 	public ResponseEntity<Bill> getBill(@PathVariable("id") long id) {
 		return new ResponseEntity<Bill>(billService.getBill(id), HttpStatus.OK);
 	}
-	
+
 	@RequestMapping(value = "/api/bills", method = RequestMethod.POST)
 	public ResponseEntity<StandardResponse> addBill(@RequestBody(required = true) Bill bill) {
 		billService.addBill(bill);
@@ -371,8 +369,8 @@ public class RestTestController {
 		billService.deleteBill(id);
 		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
 	}
-	
-	//STAT REPORT
+
+	// STAT REPORT
 	@RequestMapping("/api/statreport/job/{status}")
 	public int getCompletedPendingJobCount(@PathVariable("status") String status) {
 		return jobService.getCompletedPendingCount(status);
@@ -382,5 +380,5 @@ public class RestTestController {
 	public List<StatReport> getCompletedPendingJobCount() {
 		return jobService.getCompletedPendingCount();
 	}
-	
+
 }

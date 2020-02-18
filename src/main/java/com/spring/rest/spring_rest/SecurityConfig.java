@@ -19,10 +19,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Autowired
 	DataSource dataSource;
 	
-	@Bean
-	public PasswordEncoder getPasswordEncoder() {
-	    return NoOpPasswordEncoder.getInstance();
-	}
+//	@Bean
+//	public PasswordEncoder getPasswordEncoder() {
+//	    return NoOpPasswordEncoder.getInstance();
+//	}
 	
 	@Bean
 	public PasswordEncoder passwordEncoder() {
