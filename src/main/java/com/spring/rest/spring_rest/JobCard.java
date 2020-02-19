@@ -29,6 +29,7 @@ public class JobCard {
 	private long jobId;
 	private Date jobStartDate;
 	private Date jobEndDate;
+	private String description;
 	private String carNo;
 	private String carBrand;
 	private String carModel;
@@ -48,7 +49,7 @@ public class JobCard {
 	
 	public JobCard(){}
 
-	public JobCard(long jobId, Date jobStartDate, Date jobEndDate, String carNo, String carBrand, String carModel,
+	public JobCard(long jobId, Date jobStartDate, Date jobEndDate, String description,String carNo, String carBrand, String carModel,
 			String carFuelType, float carKM, String carChasisNo, String carEngineNo, int carFuel, String customerName,
 			String customerPhone, String customerEmail, String customerAddress, String status, float total,
 			List<Task> task) {
@@ -56,6 +57,7 @@ public class JobCard {
 		this.jobId = jobId;
 		this.jobStartDate = jobStartDate;
 		this.jobEndDate = jobEndDate;
+		this.description = description;
 		this.carNo = carNo;
 		this.carBrand = carBrand;
 		this.carModel = carModel;
@@ -71,6 +73,16 @@ public class JobCard {
 		this.status = status;
 		this.total = total;
 		this.task = task;
+	}
+
+	
+	
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
 	}
 
 	public long getJobId() {
@@ -217,6 +229,13 @@ public class JobCard {
 		this.task = task;
 	}
 }
-//insert into job_card values(1,'Honda','Chasis_1','Engine_1',20,'Diesel',2000,'Civic','KA 01 1234','Bengaluru','raj@gmail.com','Raj','9876543698','2020-10-8','2020-10-10','Pending',5000);
+//insert into job_card values(1,'Honda','Chasis_1','Engine_1',20,'Diesel',2000,'Civic','KA 01 1234','Bengaluru','raj@gmail.com','Raj','9876543698','2020-10-8','2020-10-10','Pending',5000,'1st Job');
 //insert into task values(1,'Task 1',2000,20);
 //insert into job_card_task values(1,1);
+//
+//
+//insert into job_card values(2,'Honda','Chasis_2','Engine_2',40,'Diesel',4000,'Civic','KA 02 1234','Bengaluru','rajesh@gmail.com','Rajesh','9876543690','2020-10-10','2020-10-8','Completed',3000,'2nd Job');
+//insert into task values(2,'Task 2',2000,132);
+//insert into task values(3,'Task 3',1000,27);
+//insert into job_card_task values(2,2);
+//insert into job_card_task values(2,3);
