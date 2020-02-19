@@ -217,4 +217,6 @@ public class JobCard {
 		this.task = task;
 	}
 }
-
+//insert into job_card values(1,'Honda','Chasis_1','Engine_1',20,'Diesel',2000,'Civic','KA 01 1234','Bengaluru','raj@gmail.com','Raj','9876543698','2020-10-8','2020-10-10','Pending',5000);
+//insert into task values(1,'Task 1',2000,20);
+//insert into job_card_task values(1,1);
