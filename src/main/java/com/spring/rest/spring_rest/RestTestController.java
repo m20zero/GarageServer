@@ -46,6 +46,8 @@ public class RestTestController {
 	private AuthoritiesService authoritiesService;
 	@Autowired
 	private PasswordEncoder bCryptPasswordEncoder;
+	@Autowired
+	private JobCardService jobCardService;
 
 	// HEALTH
 	@RequestMapping("/health")
@@ -381,4 +383,43 @@ public class RestTestController {
 		return jobService.getCompletedPendingCount();
 	}
 
+	
+	// JOBCARD SERVICE
+	@RequestMapping("/api/jobcards")
+	public List<JobCard> getAllJobCards() {
+		return jobCardService.getallJobCards();
+	}
+
+	@RequestMapping("/api/jobcards/Completed")
+	public List<JobCard> getAllCompletedJobCards() {
+		return jobCardService.getallCompletedPendingJobCards("Completed");
+	}
+
+	@RequestMapping("/api/jobcards/Pending")
+	public List<JobCard> getAllPendingJobCards() {
+		return jobCardService.getallCompletedPendingJobCards("Pending");
+	}
+
+	@RequestMapping("/api/jobcard/{id}")
+	public ResponseEntity<JobCard> getJobCard(@PathVariable("id") long id) {
+		return new ResponseEntity<JobCard>(jobCardService.getJobCard(id), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/jobcards", method = RequestMethod.POST)
+	public ResponseEntity<StandardResponse> addJobCard(@RequestBody(required = true) JobCard jobCard) {
+		jobCardService.addJobCard(jobCard);
+		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/jobcards", method = RequestMethod.PUT)
+	public ResponseEntity<StandardResponse> updateJobCard(@RequestBody(required = true) JobCard jobCard) {
+		jobCardService.updateJobCard(jobCard);
+		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
+	}
+
+	@RequestMapping(value = "/api/jobcards/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<StandardResponse> deleteJobCardById(@PathVariable("id") long id) {
+		jobCardService.deleteJobCard(id);
+		return new ResponseEntity<StandardResponse>(new StandardResponse("OK"), HttpStatus.OK);
+	}
 }

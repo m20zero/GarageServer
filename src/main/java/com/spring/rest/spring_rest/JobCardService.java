@@ -21,7 +21,7 @@ public class JobCardService {
 		return results;
 	}
 	
-	public List<JobCard> getallCompletedPendingJobCardss(String status) {
+	public List<JobCard> getallCompletedPendingJobCards(String status) {
 		if(status == "Completed"){
 			TypedQuery<JobCard> query = em.createNamedQuery(JobCard.FIND_ALL_COMPLETED_JOBCARDS, JobCard.class);
 			List<JobCard> results = query.getResultList();
